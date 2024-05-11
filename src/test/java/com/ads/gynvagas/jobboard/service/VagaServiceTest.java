@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,5 +53,26 @@ class VagaServiceTest {
         assertEquals(true, listaDeVagas.contains(vaga1));
         assertEquals(true, listaDeVagas.contains(vaga2));
         assertEquals(true, listaDeVagas.contains(vaga3));
+    }
+
+    @Test
+    void testaFalhaAoAdicionarVaga() {
+        VagaRepository mockRepository = Mockito.mock(VagaRepository.class);
+        VagaService vagaService = new VagaService(mockRepository);
+        Vaga vaga = new Vaga();
+        Mockito.when(mockRepository.save(vaga)).thenThrow(RuntimeException.class);
+        assertThrows(Exception.class, () -> vagaService.adicionarVaga(vaga));
+    }
+
+    @Test
+    void testaObterListaVazia() {
+        VagaRepository mockRepository = Mockito.mock(VagaRepository.class);
+        VagaService vagaService = new VagaService(mockRepository);
+
+        Mockito.when(mockRepository.findAll()).thenReturn(Collections.emptyList());
+
+        List<Vaga> listaDeVagas = vagaService.obterTodasAsVagas();
+
+        assertTrue(listaDeVagas.isEmpty());
     }
 }
