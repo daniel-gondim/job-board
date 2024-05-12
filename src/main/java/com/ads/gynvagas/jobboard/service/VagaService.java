@@ -23,7 +23,13 @@ public class VagaService {
         return vagaRepository.findAll();
     }
 
-    public Vaga editarVaga(int id, Vaga vaga) {
+    public Vaga editarVaga(Integer id, Vaga vaga) {
+        Vaga vagaExistente = vagaRepository.findById(id).orElseThrow();
+        vagaExistente.setNome(vagaExistente.getNome());
+        vagaExistente.setDescricao(vagaExistente.getDescricao());
+        vagaExistente.setEmpresa(vagaExistente.getEmpresa());
+        vagaExistente.setContato(vagaExistente.getContato());
+        vagaExistente.setSalario(vagaExistente.getSalario());
         return vagaRepository.save(vaga);
     }
 
