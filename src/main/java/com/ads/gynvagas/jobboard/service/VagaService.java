@@ -33,4 +33,7 @@ public class VagaService {
         return vagaRepository.save(vaga);
     }
 
+    public void deletaVaga(Integer id) {
+        this.vagaRepository.deleteById(id);
+    }
 }
