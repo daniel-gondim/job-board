@@ -27,7 +27,7 @@ public class VagaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Vaga> editarVaga(@PathVariable Integer id, @RequestBody Vaga vaga) {
-        Vaga vagaAtualizada = vagaService.editarVagas(id, vaga);
+        Vaga vagaAtualizada = vagaService.editarVaga(id, vaga);
         return ResponseEntity.ok(vagaAtualizada);
     }
 
