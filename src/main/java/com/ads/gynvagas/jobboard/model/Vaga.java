@@ -1,13 +1,13 @@
 package com.ads.gynvagas.jobboard.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Entity
+@Document
 @Data
 public class Vaga {
-    @Id
+    @MongoId
     private String nome;
     private String descricao;
     private String empresa;
