@@ -23,7 +23,7 @@ public class VagaService {
         return vagaRepository.findAll();
     }
 
-    public Vaga editarVaga(Integer id, Vaga vaga) {
+    public Vaga editarVaga(String id, Vaga vaga) {
         Vaga vagaExistente = vagaRepository.findById(id).orElseThrow();
         vagaExistente.setNome(vagaExistente.getNome());
         vagaExistente.setDescricao(vagaExistente.getDescricao());
@@ -33,7 +33,7 @@ public class VagaService {
         return vagaRepository.save(vaga);
     }
 
-    public void deletaVaga(Integer id) {
+    public void deletaVaga(String id) {
         this.vagaRepository.deleteById(id);
     }
 }

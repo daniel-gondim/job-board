@@ -27,13 +27,13 @@ public class VagaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vaga> editarVaga(@PathVariable Integer id, @RequestBody Vaga vaga) {
+    public ResponseEntity<Vaga> editarVaga(@PathVariable String id, @RequestBody Vaga vaga) {
         Vaga vagaAtualizada = vagaService.editarVaga(id, vaga);
         return ResponseEntity.ok(vagaAtualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removerVaga(@PathVariable Integer id) {
+    public ResponseEntity<String> removerVaga(@PathVariable String id) {
         vagaService.deletaVaga(id);
         return ResponseEntity.ok("Vaga deleteda com sucesso.");
     }

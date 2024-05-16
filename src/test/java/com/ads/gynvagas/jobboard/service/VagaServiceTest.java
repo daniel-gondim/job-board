@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -100,5 +101,31 @@ class VagaServiceTest {
 
         assertTrue(listaDeVagas.isEmpty());
         assertNotNull(listaDeVagas);
+    }
+
+    @Test
+    void testaAtualizarVaga() {
+        VagaRepository mockRepository = Mockito.mock(VagaRepository.class);
+        VagaService vagaService = new VagaService(mockRepository);
+        Vaga vagaExistente = new Vaga();
+        vagaExistente.setId("1");
+        vagaExistente.setNome("Desenvolvedor .Net");
+        vagaExistente.setDescricao("Desenvolvimento de aplicações");
+        vagaExistente.setEmpresa("Empresa ABC");
+        vagaExistente.setContato("contatoabc@empresa.com");
+        vagaExistente.setSalario(5678.9);
+
+        Vaga vagaAtualizada = new Vaga();
+        vagaAtualizada.setId("1");
+        vagaAtualizada.setNome("Desenvolvedor Python");
+        vagaAtualizada.setDescricao("Machine Learning Python");
+
+        Mockito.when(mockRepository.findById(("1"))).thenReturn(Optional.of(vagaExistente));
+        Mockito.when(mockRepository.save(vagaAtualizada)).thenReturn(vagaAtualizada);
+
+        Vaga resultado = vagaService.editarVaga("1", vagaAtualizada);
+
+        assertNotNull(resultado);
+        assertEquals(vagaAtualizada.getNome(), resultado.getNome());
     }
 }
