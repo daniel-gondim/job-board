@@ -16,7 +16,8 @@ public class VagaController {
     VagaService vagaService;
 
     @GetMapping("/vagas")
-    public List<Vaga> obterTodasAsVagas () {
+    @ResponseBody
+    public List<Vaga> obterTodasAsVagas() {
         return vagaService.obterTodasAsVagas();
     }
 
