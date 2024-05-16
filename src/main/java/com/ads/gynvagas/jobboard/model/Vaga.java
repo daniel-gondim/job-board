@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Data
 public class Vaga {
     @MongoId
-    private Integer id;
+    private String id;
 
     @JsonProperty("nome")
     private String nome;
