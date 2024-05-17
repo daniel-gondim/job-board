@@ -5,6 +5,7 @@ import com.ads.gynvagas.jobboard.repository.VagaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class VagaService {
@@ -24,12 +25,12 @@ public class VagaService {
     }
 
     public Vaga editarVaga(String id, Vaga vaga) {
-        Vaga vagaExistente = vagaRepository.findById(id).orElseThrow();
-        vagaExistente.setNome(vagaExistente.getNome());
-        vagaExistente.setDescricao(vagaExistente.getDescricao());
-        vagaExistente.setEmpresa(vagaExistente.getEmpresa());
-        vagaExistente.setContato(vagaExistente.getContato());
-        vagaExistente.setSalario(vagaExistente.getSalario());
+        Vaga vagaExistente = vagaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Vaga não encontrada com o ID: " + id));
+        vagaExistente.setNome(vaga.getNome());
+        vagaExistente.setDescricao(vaga.getDescricao());
+        vagaExistente.setEmpresa(vaga.getEmpresa());
+        vagaExistente.setContato(vaga.getContato());
+        vagaExistente.setSalario(vaga.getSalario());
         return vagaRepository.save(vaga);
     }
 

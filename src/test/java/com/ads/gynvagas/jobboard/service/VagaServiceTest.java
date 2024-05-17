@@ -5,10 +5,7 @@ import com.ads.gynvagas.jobboard.repository.VagaRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -127,5 +124,28 @@ class VagaServiceTest {
 
         assertNotNull(resultado);
         assertEquals(vagaAtualizada.getNome(), resultado.getNome());
+    }
+
+    @Test
+    void testaAtualizarVagaNãoExistente() {
+        VagaRepository mockRepository = Mockito.mock(VagaRepository.class);
+        VagaService vagaService = new VagaService(mockRepository);
+
+        Vaga vagaExistente = new Vaga();
+        vagaExistente.setId("1");
+        vagaExistente.setNome("Desenvolvedor .Net");
+        vagaExistente.setDescricao("Desenvolvimento de aplicações");
+        vagaExistente.setEmpresa("Empresa ABC");
+        vagaExistente.setContato("contatoabc@empresa.com");
+        vagaExistente.setSalario(5678.9);
+
+        Vaga vagaAtualizada = new Vaga();
+        vagaAtualizada.setId("1");
+        vagaAtualizada.setNome("Desenvolvedor Python");
+        vagaAtualizada.setDescricao("Machine Learning Python");
+
+        Mockito.when(mockRepository.findById(("2"))).thenReturn(Optional.empty());
+        Mockito.when(mockRepository.save(vagaAtualizada)).thenReturn(vagaAtualizada);
+        assertThrows(NoSuchElementException.class, () -> vagaService.editarVaga("2", vagaAtualizada));
     }
 }
