@@ -2,6 +2,7 @@ package com.ads.gynvagas.jobboard.service;
 
 import com.ads.gynvagas.jobboard.model.Vaga;
 import com.ads.gynvagas.jobboard.repository.VagaRepository;
+import jakarta.xml.bind.ValidationException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -148,4 +149,43 @@ class VagaServiceTest {
         Mockito.when(mockRepository.save(vagaAtualizada)).thenReturn(vagaAtualizada);
         assertThrows(NoSuchElementException.class, () -> vagaService.editarVaga("2", vagaAtualizada));
     }
+
+    @Test
+    void textaExcluirVaga() {
+        VagaRepository mockRepository = Mockito.mock(VagaRepository.class);
+        VagaService vagaService = new VagaService(mockRepository);
+        Vaga vagaExistente = new Vaga();
+        vagaExistente.setId("1");
+        vagaExistente.setNome("Desenvolvedor .Net");
+        vagaExistente.setDescricao("Desenvolvimento de aplicações");
+        vagaExistente.setEmpresa("Empresa ABC");
+        vagaExistente.setContato("contatoabc@empresa.com");
+        vagaExistente.setSalario(5678.9);
+
+        List <Vaga> listaDeVagas = new ArrayList<>();
+        listaDeVagas.add(vagaExistente);
+        Mockito.when(mockRepository.findById("1")).thenReturn(Optional.of(vagaExistente));
+
+        vagaService.deletaVaga("1");
+        Mockito.verify(mockRepository).deleteById("1");
+    }
+
+//    @Test
+//    void testaAtualizacaoComCampoInvalido() {
+//        VagaRepository mockRepository = Mockito.mock(VagaRepository.class);
+//        VagaService vagaService = new VagaService(mockRepository);
+//        Vaga vaga = new Vaga();
+//        vaga.setId("1234567890abcdef12345678");
+//        vaga.setNome("Nome Original");
+//        vagaService.adicionarVaga(vaga);
+//
+//        Vaga vagaAtualizada = new Vaga();
+//        // Define algum campo inválido
+//        vagaAtualizada.setNome(null);
+//
+//        assertThrows(ValidationException.class, () -> {
+//            vagaService.editarVaga("1234567890abcdef12345678", vagaAtualizada);
+//        });
+//    }
+
 }
