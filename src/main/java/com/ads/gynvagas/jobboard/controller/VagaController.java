@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/vagas")  // Adicione um nível de mapeamento base para os endpoints
 public class VagaController {
 
     @Autowired
     VagaService vagaService;
 
-    @GetMapping("/vagas")
-    @ResponseBody
+    @GetMapping()
     public List<Vaga> obterTodasAsVagas() {
         return vagaService.obterTodasAsVagas();
     }
 
-    @PostMapping("/vagas")
+    @PostMapping()
     public Vaga adicionarVaga(@RequestBody Vaga vaga) {
         return vagaService.adicionarVaga(vaga);
     }
