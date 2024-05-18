@@ -1,0 +1,10 @@
+com/ads/gynvagas/jobboard/repository/CandidatoRepository.class
+com/ads/gynvagas/jobboard/model/Candidato.class
+config/SecurityConfig.class
+com/ads/gynvagas/jobboard/model/Vaga.class
+com/ads/gynvagas/jobboard/JobBoardApplication.class
+com/ads/gynvagas/jobboard/service/CandidatoService.class
+com/ads/gynvagas/jobboard/repository/VagaRepository.class
+com/ads/gynvagas/jobboard/controller/CandidatoController.class
+com/ads/gynvagas/jobboard/controller/VagaController.class
+com/ads/gynvagas/jobboard/service/VagaService.class
