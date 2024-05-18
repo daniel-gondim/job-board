@@ -9,30 +9,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/vagas")  // Adicione um nível de mapeamento base para os endpoints
 public class VagaController {
 
     @Autowired
     VagaService vagaService;
 
-    @GetMapping("/vagas")
-    public List<Vaga> obterTodasAsVagas () {
+    @GetMapping()
+    public List<Vaga> obterTodasAsVagas() {
         return vagaService.obterTodasAsVagas();
     }
 
-    @PostMapping("/vagas")
+    @PostMapping()
     public Vaga adicionarVaga(@RequestBody Vaga vaga) {
         return vagaService.adicionarVaga(vaga);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vaga> editarVaga(@PathVariable Integer id, @RequestBody Vaga vaga) {
+    public ResponseEntity<Vaga> editarVaga(@PathVariable String id, @RequestBody Vaga vaga) {
         Vaga vagaAtualizada = vagaService.editarVaga(id, vaga);
         return ResponseEntity.ok(vagaAtualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removerVaga(@PathVariable Integer id) {
+    public ResponseEntity<String> removerVaga(@PathVariable String id) {
         vagaService.deletaVaga(id);
         return ResponseEntity.ok("Vaga deleteda com sucesso.");
     }
