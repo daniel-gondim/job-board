@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -38,16 +39,19 @@ public class CurriculoService {
             atualizado.setEndereco(curriculo.getEndereco());
             atualizado.setExperiencias(curriculo.getExperiencias());
             atualizado.setFormacoes(curriculo.getFormacoes());
-
             return curriculoRepository.save(atualizado);
         } else {
-            // Lançar exceção ou lidar com o caso de currículo não encontrado conforme necessário
-            return null;
+            throw new NoSuchElementException("Currículo não encontrado com o id: " + id);
         }
     }
 
     public void deletarCurriculo(String id) {
-        curriculoRepository.deleteById(id);
+        Optional<Curriculo> curriculoExistente = curriculoRepository.findById(id);
+        if (curriculoExistente.isPresent()) {
+            curriculoRepository.deleteById(id);
+        } else {
+            throw new NoSuchElementException("Currículo não encontrado com o id: " + id);
+        }
     }
 
     public Optional<Curriculo> obterCurriculoPorId(String id) {
