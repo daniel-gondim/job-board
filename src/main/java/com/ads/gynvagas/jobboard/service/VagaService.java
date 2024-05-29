@@ -34,6 +34,10 @@ public class VagaService {
         return vagaRepository.save(vaga);
     }
 
+    public Vaga obterVagaPorId(String id) {
+        return vagaRepository.findById(id).orElse(null);
+    }
+
     public void deletaVaga(String id) {
         this.vagaRepository.deleteById(id);
     }

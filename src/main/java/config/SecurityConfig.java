@@ -14,11 +14,14 @@ public class SecurityConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         logger.info("Configuring Security Filter Chain");
 
         http
+                .cors()
+                .and()
                 .authorizeRequests(authorizeRequests -> {
                     logger.info("Permitting all requests");
                     authorizeRequests.anyRequest().permitAll();

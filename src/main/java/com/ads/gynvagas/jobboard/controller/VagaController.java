@@ -16,6 +16,7 @@ public class VagaController {
     @Autowired
     VagaService vagaService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public List<Vaga> obterTodasAsVagas() {
         return vagaService.obterTodasAsVagas();
@@ -30,6 +31,16 @@ public class VagaController {
     public ResponseEntity<Vaga> editarVaga(@PathVariable String id, @RequestBody Vaga vaga) {
         Vaga vagaAtualizada = vagaService.editarVaga(id, vaga);
         return ResponseEntity.ok(vagaAtualizada);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Vaga> obterVagaPorId(@PathVariable String id) {
+        Vaga vaga = vagaService.obterVagaPorId(id);
+        if (vaga != null) {
+            return ResponseEntity.ok(vaga); // Retorna 200 OK e os detalhes da vaga
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found se a vaga não for encontrada
+        }
     }
 
     @DeleteMapping("/{id}")
