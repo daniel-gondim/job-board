@@ -3,7 +3,7 @@ package com.ads.gynvagas.jobboard.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.List;
+
 
 @Document(collection = "curriculos")
 @Data
@@ -16,10 +16,16 @@ public class Curriculo {
     private String sobrenome;
     private String email;
     private String telefone;
-    private Endereco endereco;
-    private List<Experiencia> experiencias;
-    private List<Formacao> formacoes;
-
+    private String cep;
+    private String logradouro;
+    private String cidade;
+    private String uf;
+    private String empresa;
+    private String funcao;
+    private String instituicaoDeEnsino;
+    private String curso;
+    private String nivel;
+ /*   
     @Data
     public static class Endereco {
         private String cep;
@@ -38,5 +44,5 @@ public class Curriculo {
     public static class Formacao {
         private String curso;
         private String nivel;
-    }
+    } */
 }

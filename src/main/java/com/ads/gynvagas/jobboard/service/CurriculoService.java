@@ -26,7 +26,7 @@ public class CurriculoService {
         return curriculoRepository.save(curriculo);
     }
 
-    public Curriculo editarCurriculo(String id, Curriculo curriculo) {
+    /* public Curriculo editarCurriculo(String id, Curriculo curriculo) {
         Optional<Curriculo> curriculoExistente = curriculoRepository.findById(id);
 
         if (curriculoExistente.isPresent()) {
@@ -44,7 +44,7 @@ public class CurriculoService {
             // Lançar exceção ou lidar com o caso de currículo não encontrado conforme necessário
             return null;
         }
-    }
+    } */
 
     public void deletarCurriculo(String id) {
         curriculoRepository.deleteById(id);
