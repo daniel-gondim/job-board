@@ -12,6 +12,8 @@ public class Empresa {
     private String id;
     @JsonProperty("nome")
     private String nome;
+    @JsonProperty("cnpj")
+    private String cnpj;
     @JsonProperty("endereco")
     private String endereco;
     @JsonProperty("telefone")
