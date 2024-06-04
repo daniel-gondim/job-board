@@ -1,6 +1,7 @@
 package com.ads.gynvagas.jobboard.service;
 
 import com.ads.gynvagas.jobboard.model.Empresa;
+import com.ads.gynvagas.jobboard.model.Vaga;
 import com.ads.gynvagas.jobboard.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,10 @@ public class EmpresaService {
 
         // Salva e retorna a empresa atualizada
         return empresaRepository.save(empresaExistente);
+    }
+
+    public Empresa obterEmpresaPorId(String id) {
+        return empresaRepository.findById(id).orElse(null);
     }
 
     public void deletarEmpresa(String id) {
