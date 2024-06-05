@@ -6,14 +6,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/public/**").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults());
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -23,22 +39,29 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeRequests(authorizeRequests -> {
-                    logger.info("Permitting all requests");
-                    authorizeRequests.anyRequest().permitAll();
+                    logger.info("Configuring request authorization");
+                    authorizeRequests
+                            .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/user/**").hasRole("USER")
+                            .requestMatchers("/public/**").permitAll()
+                            .anyRequest().authenticated();
                 })
                 .csrf(csrf -> {
-                    logger.info("Disabling CSRF");
-                    csrf.disable();
+                    logger.info("Enabling CSRF");
+                    csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
                 })
                 .formLogin(formLogin -> {
-                    logger.info("Disabling form login");
-                    formLogin.disable();
+                    logger.info("Enabling form login");
+                    formLogin
+                            .loginPage("/login")
+                            .permitAll();
                 })
                 .httpBasic(httpBasic -> {
-                    logger.info("Disabling HTTP Basic authentication");
-                    httpBasic.disable();
+                    logger.info("Enabling HTTP Basic authentication");
+                    httpBasic.realmName("MyApp");
                 });
 
         return http.build();
     }
+
 }
