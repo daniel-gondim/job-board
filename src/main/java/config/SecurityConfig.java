@@ -28,6 +28,8 @@ public class SecurityConfig {
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .requestMatchers("/user/**").hasRole("USER")
                             .requestMatchers("/public/**").permitAll()
+                            .requestMatchers("/vagas").permitAll()
+                            .requestMatchers("/login").permitAll()
                             .anyRequest().authenticated();
                 })
                 .csrf(csrf -> {
@@ -43,8 +45,11 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> {
                     logger.info("Enabling HTTP Basic authentication");
                     httpBasic.realmName("MyApp");
+                })
+                .oauth2Login(oauth2 -> {
+                    logger.info("Enabling OAuth2 login");
+                    oauth2.loginPage("/oauth2/authorization/google");
                 });
-
         return http.build();
     }
 }
