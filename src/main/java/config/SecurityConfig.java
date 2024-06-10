@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        logger.debug("Configuração de segurança aplicada: {}", http);
         return http.build();
     }
 
