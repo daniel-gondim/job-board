@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vagas")  // Adicione um nível de mapeamento base para os endpoints
+@RequestMapping("/api")  // Adicione um nível de mapeamento base para os endpoints
 public class VagaController {
 
     @Autowired
@@ -17,6 +17,7 @@ public class VagaController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
+    @RequestMapping(method = RequestMethod.GET, path = "/vagas")
     public List<Vaga> obterTodasAsVagas() {
         return vagaService.obterTodasAsVagas();
     }
