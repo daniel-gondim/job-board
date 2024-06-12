@@ -11,6 +11,7 @@ public class Curriculo {
 
     @Id
     private String id;
+  
 
     private String nome;
     private String sobrenome;
@@ -22,6 +23,7 @@ public class Curriculo {
     private String uf;
     private String empresa;
     private String funcao;
+    private String atividades;
     private String instituicaoDeEnsino;
     private String curso;
     private String nivel;
